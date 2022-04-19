@@ -1,0 +1,25 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+
+
+<PageTitle>SignalR Chat</PageTitle>
+<h5>SignalR Chat</h5>
+
+@if (!IsConnected)
+{
+    <div class="input-group">
+        <input @bind="Username" class="form-control" placeholder="Your name">
+        <button class="btn btn-primary form-control-append" @onclick="Connect">Connect</button>
+    </div>
+}
+else
+{
+    <textarea class="w-100" style="height: 500px;" @ref="TextAreaRef">
+        @AllMessages
+            </textarea>
+    <div class="input-group">
+        <input @bind-value="Message" @bind-value:event="oninput" @onkeyup="HandleInput" class="form-control">
+        <button class="btn btn-primary form-control-append" @onclick="Send" disabled="@(!IsConnected)">Send</button>
+    </div>
+
+}
